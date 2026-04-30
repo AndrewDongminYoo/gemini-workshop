@@ -14,14 +14,14 @@ cp .env.example .env           # .env에 GEMINI_API_KEY 입력
 
 ## Structure
 
-| 폴더 | 내용 |
-|------|------|
-| `module-01-model-demos/` | Gemini 모델 비교, 영상 이해, 인보이스 추출 |
-| `module-02-creative-media/` | 이미지·영상 생성 |
-| `module-03-voice-music-realtime/` | 음성, 음악, 실시간 대화 |
-| `module-04-tools-ecosystem/` | 임베딩, 로컬 에이전트 |
-| `module-05-vibe-coding/` | AI Studio 노코드 실습 (메모만) |
-| `module-06-gemini-api-antigravity/` | Gemini API + Antigravity 에이전트 |
+| 폴더                                | 내용                                       |
+| ----------------------------------- | ------------------------------------------ |
+| `module-01-model-demos/`            | Gemini 모델 비교, 영상 이해, 인보이스 추출 |
+| `module-02-creative-media/`         | 이미지·영상 생성                           |
+| `module-03-voice-music-realtime/`   | 음성, 음악, 실시간 대화                    |
+| `module-04-tools-ecosystem/`        | 임베딩, 로컬 에이전트                      |
+| `module-05-vibe-coding/`            | AI Studio 노코드 실습 (메모만)             |
+| `module-06-gemini-api-antigravity/` | Gemini API + Antigravity 에이전트          |
 
 ## Running a Script
 
