@@ -6,25 +6,39 @@ Prerequisites:
 Note: Live voice requires the Gemini Live API (WebSocket-based).
 This script demonstrates the setup pattern.
 """
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from shared.client import get_client
 
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
+
 
 def main() -> None:
-    # Live voice conversation uses the client.aio.live.connect() API
-    # Full interactive demo: https://github.com/google-gemini/cookbook/tree/main/examples/live_api
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     print("Live Voice setup:")
     print("  client = get_client()")
-    print("  async with client.aio.live.connect(model='gemini-3.1-flash-live-preview') as session:")
+    print(
+        "  async with client.aio.live.connect(model='gemini-3.1-flash-live-preview') as session:"
+    )
     print("      # Send audio chunks and receive streamed audio back")
     print()
     print("Run the interactive demo from the Gemini cookbook for full audio I/O.")
 
     client = get_client()
-    print(f"\nClient ready: {type(client)}")
+    setup_note = (
+        "Live Voice requires the Gemini Live API (WebSocket).\n"
+        "Model: gemini-3.1-flash-live-preview\n"
+        "Ref: https://github.com/google-gemini/cookbook/tree/main/examples/live_api\n"
+    )
+    output_path = os.path.join(OUTPUT_DIR, "ex09_live_voice_setup.txt")
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(setup_note)
+    print("Client ready.")
+    print(f"Saved setup note: {output_path}")
 
 
 if __name__ == "__main__":
