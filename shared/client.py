@@ -1,9 +1,10 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 from google import genai  # google-genai >= 0.8
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 
 def get_client() -> genai.Client:
