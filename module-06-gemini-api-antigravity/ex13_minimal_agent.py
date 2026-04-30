@@ -9,6 +9,8 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+from google.genai import types
+
 from shared.client import get_client
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
@@ -20,13 +22,13 @@ If you need to look something up, say SEARCH: <query> on its own line."""
 
 def minimal_agent(question: str, max_turns: int = 3) -> list[str]:
     client = get_client()
-    messages = [{"role": "user", "content": question}]
+    messages = [types.Content(role="user", parts=[types.Part.from_text(text=question)])]
     log = []
 
     for turn in range(max_turns):
         response = client.models.generate_content(
             model="gemini-2.5-flash",
-            contents=question if turn == 0 else messages[-1]["content"],
+            contents=messages,
             config={"system_instruction": SYSTEM_PROMPT},
         )
         answer = response.text
@@ -37,9 +39,18 @@ def minimal_agent(question: str, max_turns: int = 3) -> list[str]:
         if "SEARCH:" in answer:
             search_query = answer.split("SEARCH:")[1].split("\n")[0].strip()
             mock_result = f"[Mock: results for '{search_query}']"
-            messages.append({"role": "assistant", "content": answer})
             messages.append(
-                {"role": "user", "content": f"Search result: {mock_result}\nContinue."}
+                types.Content(role="model", parts=[types.Part.from_text(text=answer)])
+            )
+            messages.append(
+                types.Content(
+                    role="user",
+                    parts=[
+                        types.Part.from_text(
+                            text=f"Search result: {mock_result}\nContinue."
+                        )
+                    ],
+                )
             )
         else:
             break
@@ -54,7 +65,7 @@ def main() -> None:
     )
 
     output_path = os.path.join(OUTPUT_DIR, "ex13_minimal_agent.txt")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n\n".join(log))
     print(f"\nSaved: {output_path}")
 

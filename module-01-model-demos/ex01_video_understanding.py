@@ -41,7 +41,7 @@ def main() -> None:
     print(output)
 
     output_path = os.path.join(OUTPUT_DIR, "ex01_video_understanding.txt")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(output)
     print(f"Saved: {output_path}")
 

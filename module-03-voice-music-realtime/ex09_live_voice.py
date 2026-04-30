@@ -35,9 +35,9 @@ def main() -> None:
         "Ref: https://github.com/google-gemini/cookbook/tree/main/examples/live_api\n"
     )
     output_path = os.path.join(OUTPUT_DIR, "ex09_live_voice_setup.txt")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(setup_note)
-    print(f"\nClient ready: {type(client)}")
+    print("Client ready.")
     print(f"Saved setup note: {output_path}")
 
 

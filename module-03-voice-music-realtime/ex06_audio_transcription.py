@@ -32,7 +32,7 @@ def main() -> None:
         ],
     )
     output_path = os.path.join(OUTPUT_DIR, "ex06_transcription.txt")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(response.text)
     print(response.text)
     print(f"\nSaved: {output_path}")

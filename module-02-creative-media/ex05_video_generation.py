@@ -9,6 +9,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from shared.client import get_client
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
+POLL_INTERVAL_SECONDS = 10
 
 
 def main() -> None:
@@ -21,7 +22,7 @@ def main() -> None:
     )
     print("Generating video... (this may take 1-2 minutes)")
     while not operation.done:
-        time.sleep(10)
+        time.sleep(POLL_INTERVAL_SECONDS)
         operation = client.operations.get(operation)
 
     output_path = os.path.join(OUTPUT_DIR, "ex05_video.mp4")

@@ -14,6 +14,7 @@ from google.genai import types
 from shared.client import get_client
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
+TTS_MODEL = "gemini-2.5-flash-preview-tts"
 
 VARIANTS = [
     {
@@ -41,7 +42,7 @@ VARIANTS = [
 
 def synthesize(client, text: str, voice: str, output_path: str) -> None:
     response = client.models.generate_content(
-        model="gemini-2.5-flash-preview-tts",
+        model=TTS_MODEL,
         contents=text,
         config=types.GenerateContentConfig(
             speech_config=types.SpeechConfig(

@@ -14,15 +14,12 @@ from shared.client import get_client
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
 TEXTS = [
-    # Group A — financial stress (Korean)
     ("A1_ko", "영끌해서 집 샀는데 금리가 계속 오르고 있어서 너무 힘들다"),
     ("A2_ko", "주택담보대출 이자 부담이 늘어서 매달 적자야"),
-    # Group A — financial stress (English)
     (
         "A3_en",
         "I bought a house with maximum leverage but rising interest rates are crushing me",
     ),
-    # Group B — unrelated
     ("B1_ko", "오늘 저녁 뭐 먹을지 고민이야, 치킨이 땡기는데"),
     ("B2_en", "I can't decide what to have for dinner tonight"),
 ]
@@ -40,13 +37,11 @@ def main() -> None:
     client = get_client()
 
     labels, sentences = zip(*TEXTS, strict=False)
-    embeddings = []
-    for sentence in sentences:
-        result = client.models.embed_content(
-            model="gemini-embedding-001",
-            contents=sentence,
-        )
-        embeddings.append(result.embeddings[0].values)
+    result = client.models.embed_content(
+        model="gemini-embedding-001",
+        contents=list(sentences),
+    )
+    embeddings = [emb.values for emb in result.embeddings]
 
     lines = ["=== Cross-lingual Semantic Similarity ===\n"]
     lines.append("Texts:")

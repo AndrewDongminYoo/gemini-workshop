@@ -15,16 +15,22 @@ from google.genai import types
 from shared.client import get_client
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
+SUMMARY_MAX_CHARS = 500
+REQUEST_TIMEOUT_SECONDS = 5
 
 
 def search_wikipedia(query: str) -> str:
     """Search Wikipedia and return the article summary."""
     url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + query.replace(" ", "_")
     try:
-        r = requests.get(url, timeout=5, headers={"User-Agent": "gemini-workshop/1.0"})
+        r = requests.get(
+            url,
+            timeout=REQUEST_TIMEOUT_SECONDS,
+            headers={"User-Agent": "gemini-workshop/1.0"},
+        )
         if r.status_code == 200:
             data = r.json()
-            return data.get("extract", "No summary available.")[:500]
+            return data.get("extract", "No summary available.")[:SUMMARY_MAX_CHARS]
         return f"Wikipedia returned status {r.status_code} for '{query}'"
     except requests.RequestException as e:
         return f"Search failed: {e}"

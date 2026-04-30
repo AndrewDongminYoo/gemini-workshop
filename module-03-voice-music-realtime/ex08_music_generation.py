@@ -23,7 +23,7 @@ def main() -> None:
         contents="Describe a 30-second upbeat jazz piece suitable for a cafe background.",
     )
     output_path = os.path.join(OUTPUT_DIR, "ex08_music_description.txt")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(response.text)
     print(f"\nMusic description:\n{response.text}")
     print(f"\nSaved: {output_path}")

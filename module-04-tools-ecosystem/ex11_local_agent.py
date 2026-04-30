@@ -62,7 +62,7 @@ def main() -> None:
     log_lines.append(f"\nFinal response:\n{final}")
 
     output_path = os.path.join(OUTPUT_DIR, "ex11_local_agent.txt")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n".join(log_lines))
     print(f"\nSaved: {output_path}")
 
