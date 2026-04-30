@@ -7,9 +7,11 @@ from google.genai import types
 from shared.client import get_client
 
 AUDIO_FILE = os.path.join(os.path.dirname(__file__), "../assets/audio_sample.mp3")
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
 
 def main() -> None:
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     client = get_client()
     if not os.path.exists(AUDIO_FILE):
         print(f"Audio file not found: {AUDIO_FILE}")
@@ -26,7 +28,11 @@ def main() -> None:
             types.Part.from_bytes(data=audio_bytes, mime_type="audio/mp3"),
         ],
     )
+    output_path = os.path.join(OUTPUT_DIR, "ex06_transcription.txt")
+    with open(output_path, "w") as f:
+        f.write(response.text)
     print(response.text)
+    print(f"\nSaved: {output_path}")
 
 
 if __name__ == "__main__":

@@ -6,6 +6,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from google.genai import types
 from shared.client import get_client
 
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
+
 
 def search_web(query: str) -> str:
     """Mock web search tool."""
@@ -47,8 +49,14 @@ def run_agent(user_message: str) -> str:
 
 
 def main() -> None:
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     result = run_agent("What are the latest updates to Gemini models?")
     print(result)
+
+    output_path = os.path.join(OUTPUT_DIR, "ex12_agent_tool_use.txt")
+    with open(output_path, "w") as f:
+        f.write(result)
+    print(f"\nSaved: {output_path}")
 
 
 if __name__ == "__main__":

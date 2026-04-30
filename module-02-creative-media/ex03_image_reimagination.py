@@ -5,20 +5,21 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from shared.client import get_client
 
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
+
 
 def main() -> None:
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     client = get_client()
-    # Uses Imagen 3 for image generation
-    # Ref: workshop prompt for reimagining a photo in a new style
     result = client.models.generate_images(
         model="imagen-3.0-generate-002",
         prompt="A cozy coffee shop in watercolor painting style, warm lighting",
         config={"number_of_images": 1},
     )
-    image = result.generated_images[0].image
-    with open("output_reimagination.png", "wb") as f:
-        f.write(image.image_bytes)
-    print("Saved: output_reimagination.png")
+    output_path = os.path.join(OUTPUT_DIR, "ex03_image_reimagination.png")
+    with open(output_path, "wb") as f:
+        f.write(result.generated_images[0].image.image_bytes)
+    print(f"Saved: {output_path}")
 
 
 if __name__ == "__main__":

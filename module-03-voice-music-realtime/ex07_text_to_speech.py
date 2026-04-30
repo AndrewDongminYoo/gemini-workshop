@@ -7,9 +7,11 @@ from google.genai import types
 from shared.client import get_client
 
 TEXT = "Welcome to the Gemini workshop! Today we explore the future of AI."
+OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
 
 def main() -> None:
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     client = get_client()
     response = client.models.generate_content(
         model="gemini-2.5-flash-preview-tts",
@@ -23,9 +25,10 @@ def main() -> None:
         ),
     )
     audio_data = response.candidates[0].content.parts[0].inline_data.data
-    with open("output_tts.wav", "wb") as f:
+    output_path = os.path.join(OUTPUT_DIR, "ex07_tts.wav")
+    with open(output_path, "wb") as f:
         f.write(audio_data)
-    print("Saved: output_tts.wav")
+    print(f"Saved: {output_path}")
 
 
 if __name__ == "__main__":
