@@ -6,8 +6,10 @@ Prerequisites:
 Note: Live voice requires the Gemini Live API (WebSocket-based).
 This script demonstrates the setup pattern.
 """
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from shared.client import get_client
@@ -19,7 +21,9 @@ def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     print("Live Voice setup:")
     print("  client = get_client()")
-    print("  async with client.aio.live.connect(model='gemini-3.1-flash-live-preview') as session:")
+    print(
+        "  async with client.aio.live.connect(model='gemini-3.1-flash-live-preview') as session:"
+    )
     print("      # Send audio chunks and receive streamed audio back")
     print()
     print("Run the interactive demo from the Gemini cookbook for full audio I/O.")

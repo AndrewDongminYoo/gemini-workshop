@@ -1,9 +1,12 @@
 """Module 4, Exercise 11: Local Agent with Function Calling."""
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from google.genai import types
+
 from shared.client import get_client
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
@@ -26,7 +29,9 @@ WEATHER_TOOL = types.Tool(
             description="Get current weather for a city",
             parameters=types.Schema(
                 type="OBJECT",
-                properties={"city": types.Schema(type="STRING", description="City name")},
+                properties={
+                    "city": types.Schema(type="STRING", description="City name")
+                },
                 required=["city"],
             ),
         )

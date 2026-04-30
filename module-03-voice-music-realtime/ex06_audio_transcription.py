@@ -1,9 +1,12 @@
 """Module 3, Exercise 6: Audio Transcription."""
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from google.genai import types
+
 from shared.client import get_client
 
 AUDIO_FILE = os.path.join(os.path.dirname(__file__), "../assets/audio_sample.mp3")

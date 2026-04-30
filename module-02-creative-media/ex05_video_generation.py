@@ -1,7 +1,9 @@
 """Module 2, Exercise 5: Video Generation with Veo."""
-import sys
+
 import os
+import sys
 import time
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from shared.client import get_client

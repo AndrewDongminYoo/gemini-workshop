@@ -1,6 +1,8 @@
 """Module 1, Exercise 2: Structured Invoice Extraction."""
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from shared.client import get_client
@@ -19,7 +21,7 @@ Return only valid JSON."""
 
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    client = get_client()
+    get_client()
     # Replace with actual image path: assets/invoice_sample.jpg
     print("Exercise 2: Invoice Extraction (stub)")
     print("Add an invoice image to assets/ and update this script.")

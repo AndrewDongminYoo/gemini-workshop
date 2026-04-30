@@ -1,6 +1,8 @@
 """Module 4, Exercise 10: Text Embeddings."""
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from shared.client import get_client
@@ -15,9 +17,9 @@ TEXTS = [
 
 
 def cosine_similarity(a: list[float], b: list[float]) -> float:
-    dot = sum(x * y for x, y in zip(a, b))
-    norm_a = sum(x ** 2 for x in a) ** 0.5
-    norm_b = sum(x ** 2 for x in b) ** 0.5
+    dot = sum(x * y for x, y in zip(a, b, strict=False))
+    norm_a = sum(x**2 for x in a) ** 0.5
+    norm_b = sum(x**2 for x in b) ** 0.5
     return dot / (norm_a * norm_b)
 
 

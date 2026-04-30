@@ -3,8 +3,10 @@
 Demonstrates the simplest possible agent loop:
   think → act → observe → repeat
 """
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from shared.client import get_client
@@ -36,7 +38,9 @@ def minimal_agent(question: str, max_turns: int = 3) -> list[str]:
             search_query = answer.split("SEARCH:")[1].split("\n")[0].strip()
             mock_result = f"[Mock: results for '{search_query}']"
             messages.append({"role": "assistant", "content": answer})
-            messages.append({"role": "user", "content": f"Search result: {mock_result}\nContinue."})
+            messages.append(
+                {"role": "user", "content": f"Search result: {mock_result}\nContinue."}
+            )
         else:
             break
 
@@ -45,7 +49,9 @@ def minimal_agent(question: str, max_turns: int = 3) -> list[str]:
 
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    log = minimal_agent("Explain the key differences between Gemini Flash and Gemini Pro models.")
+    log = minimal_agent(
+        "Explain the key differences between Gemini Flash and Gemini Pro models."
+    )
 
     output_path = os.path.join(OUTPUT_DIR, "ex13_minimal_agent.txt")
     with open(output_path, "w") as f:

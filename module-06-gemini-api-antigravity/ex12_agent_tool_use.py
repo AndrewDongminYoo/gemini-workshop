@@ -1,9 +1,12 @@
 """Module 6, Exercise 12: Multi-turn Agent with Tool Use."""
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from google.genai import types
+
 from shared.client import get_client
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
@@ -21,7 +24,9 @@ SEARCH_TOOL = types.Tool(
             description="Search the web for current information",
             parameters=types.Schema(
                 type="OBJECT",
-                properties={"query": types.Schema(type="STRING", description="Search query")},
+                properties={
+                    "query": types.Schema(type="STRING", description="Search query")
+                },
                 required=["query"],
             ),
         )

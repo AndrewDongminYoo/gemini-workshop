@@ -1,9 +1,12 @@
 """Module 3, Exercise 7: Text-to-Speech with tone control."""
-import sys
+
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from google.genai import types
+
 from shared.client import get_client
 
 TEXT = "Welcome to the Gemini workshop! Today we explore the future of AI."
