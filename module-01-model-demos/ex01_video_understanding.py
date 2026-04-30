@@ -11,7 +11,7 @@ def main() -> None:
     # Ref: https://github.com/patrickloeber/workshop-gemini-aistudio-toolkit
     # Workshop prompt: describe what happens in a video
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash",
         contents="Describe what you see if I gave you a short video of a busy street.",
     )
     print(response.text)

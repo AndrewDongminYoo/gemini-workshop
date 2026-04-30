@@ -18,7 +18,7 @@ def main() -> None:
     # Full interactive demo: https://github.com/google-gemini/cookbook/tree/main/examples/live_api
     print("Live Voice setup:")
     print("  client = get_client()")
-    print("  async with client.aio.live.connect(model='gemini-2.0-flash-live-001') as session:")
+    print("  async with client.aio.live.connect(model='gemini-3.1-flash-live-preview') as session:")
     print("      # Send audio chunks and receive streamed audio back")
     print()
     print("Run the interactive demo from the Gemini cookbook for full audio I/O.")

@@ -32,7 +32,7 @@ def run_agent(user_message: str) -> str:
     history = [types.Content(role="user", parts=[types.Part.from_text(user_message)])]
 
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash",
         contents=history,
         config=types.GenerateContentConfig(tools=[SEARCH_TOOL]),
     )

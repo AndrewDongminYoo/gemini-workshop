@@ -35,7 +35,7 @@ WEATHER_TOOL = types.Tool(
 def main() -> None:
     client = get_client()
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash",
         contents="What's the weather like in Seoul and Tokyo today?",
         config=types.GenerateContentConfig(tools=[WEATHER_TOOL]),
     )

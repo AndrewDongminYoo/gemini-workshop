@@ -20,7 +20,7 @@ def main() -> None:
         audio_bytes = f.read()
 
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash",
         contents=[
             "Transcribe the following audio accurately.",
             types.Part.from_bytes(data=audio_bytes, mime_type="audio/mp3"),

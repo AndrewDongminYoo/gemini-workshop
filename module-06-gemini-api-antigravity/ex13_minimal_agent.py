@@ -20,7 +20,7 @@ def minimal_agent(question: str, max_turns: int = 3) -> None:
 
     for turn in range(max_turns):
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
+            model="gemini-2.5-flash",
             contents=question if turn == 0 else messages[-1]["content"],
             config={"system_instruction": SYSTEM_PROMPT},
         )
