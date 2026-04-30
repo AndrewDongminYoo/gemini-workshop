@@ -1,4 +1,8 @@
-"""Module 4, Exercise 10: Text Embeddings."""
+"""Module 4, Exercise 10: Cross-lingual Text Embeddings.
+
+Demonstrates that text-embedding-004 captures semantic similarity
+across Korean and English — same meaning scores high regardless of language.
+"""
 
 import os
 import sys
@@ -10,9 +14,17 @@ from shared.client import get_client
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "output")
 
 TEXTS = [
-    "The quick brown fox jumps over the lazy dog",
-    "A fast auburn fox leaps above a sleepy canine",
-    "I love machine learning and artificial intelligence",
+    # Group A — financial stress (Korean)
+    ("A1_ko", "영끌해서 집 샀는데 금리가 계속 오르고 있어서 너무 힘들다"),
+    ("A2_ko", "주택담보대출 이자 부담이 늘어서 매달 적자야"),
+    # Group A — financial stress (English)
+    (
+        "A3_en",
+        "I bought a house with maximum leverage but rising interest rates are crushing me",
+    ),
+    # Group B — unrelated
+    ("B1_ko", "오늘 저녁 뭐 먹을지 고민이야, 치킨이 땡기는데"),
+    ("B2_en", "I can't decide what to have for dinner tonight"),
 ]
 
 
@@ -26,28 +38,33 @@ def cosine_similarity(a: list[float], b: list[float]) -> float:
 def main() -> None:
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     client = get_client()
+
+    labels, sentences = zip(*TEXTS, strict=False)
     embeddings = []
-    for text in TEXTS:
+    for sentence in sentences:
         result = client.models.embed_content(
-            model="text-embedding-004",
-            contents=text,
+            model="gemini-embedding-001",
+            contents=sentence,
         )
         embeddings.append(result.embeddings[0].values)
 
-    lines = ["Cosine similarities:"]
+    lines = ["=== Cross-lingual Semantic Similarity ===\n"]
+    lines.append("Texts:")
+    for label, sentence in TEXTS:
+        lines.append(f"  [{label}] {sentence}")
+
+    lines.append("\nCosine similarities (higher = more similar meaning):")
     for i in range(len(TEXTS)):
         for j in range(i + 1, len(TEXTS)):
             sim = cosine_similarity(embeddings[i], embeddings[j])
-            lines.append(f"  [{i}] vs [{j}]: {sim:.4f}")
-    lines.append("\nTexts:")
-    for i, t in enumerate(TEXTS):
-        lines.append(f"  [{i}] {t}")
+            tag = "← SAME LANGUAGE" if labels[i][-2:] == labels[j][-2:] else ""
+            lines.append(f"  [{labels[i]}] vs [{labels[j]}]: {sim:.4f}  {tag}")
 
     output = "\n".join(lines)
     print(output)
 
     output_path = os.path.join(OUTPUT_DIR, "ex10_embeddings.txt")
-    with open(output_path, "w") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(output)
     print(f"\nSaved: {output_path}")
 
